@@ -1,9 +1,16 @@
 {
-  "name": "Elastic-Beanstalk-Sample-App",
+  "name": "sapphire-backend",
   "version": "0.0.1",
+  "license": "UNLICENSED",
   "private": true,
-  "dependencies": {},
   "scripts": {
     "start": "node app.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.6",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
   }
 }

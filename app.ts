@@ -1,39 +1,58 @@
-const port = process.env.PORT || 3000,
-    http = require('http'),
-    fs = require('fs'),
-    html = fs.readFileSync('index.html');
+import createError from "http-errors";
+import express, { NextFunction, Request, Response } from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import fs from "fs";
 
-const log = function(entry) {
-    fs.appendFileSync('/tmp/sample-app.log', new Date().toISOString() + ' - ' + entry + '\n');
-};
+import testRouter from "./routes/index";
+import apiRouter from "./routes/api";
 
-const server = http.createServer(function (req, res) {
-    if (req.method === 'POST') {
-        let body = '';
+const port = process.env.PORT;
+if (!port) {
+  throw new Error("PORT not set");
+}
 
-        req.on('data', function(chunk) {
-            body += chunk;
-        });
+const app = express();
 
-        req.on('end', function() {
-            if (req.url === '/') {
-                log('Received a message.');
-            } else if (req.url = '/scheduled') {
-                log('Received task ' + req.headers['x-aws-sqsd-taskname'] + ' scheduled at ' + req.headers['x-aws-sqsd-scheduled-at']);
-            }
+// view engine setup
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
-            res.writeHead(200, 'OK', {'Content-Type': 'text/plain'});
-            res.end();
-        });
-    } else {
-        res.writeHead(200);
-        res.write(html);
-        res.end();
-    }
+app.use("/test", testRouter);
+app.use("/api", apiRouter);
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404));
 });
 
-// Listen on port 3000, IP defaults to 127.0.0.1
-server.listen(port);
+// error handling - should be last middleware
 
-// Put a friendly message on the terminal
-console.log('Server running at http://127.0.0.1:' + port + '/');
+interface Error {
+  message: string;
+  status?: number;
+}
+
+app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.send("error");
+});
+
+export const log = (entry: string) =>
+  fs.appendFileSync(
+    "/tmp/sample-app.log",
+    new Date().toISOString() + " - " + entry + "\n"
+  );
+
+app.listen(port, () => {
+  log(`Server running at http://localhost:${port}`);
+});

@@ -12,7 +12,7 @@ Currently, we need to manually deploy to elastic beanstalk.
 
 - zip the contents of this directory (not the directory itself - the zip should contain `package.json` etc at the top level)
 - Go to a properly configured elastic beanstalk environment (currently I'm using
-  environment `e-q3nu9agtwx`, "sapphire-backend-env-1`, in us-east-2).
+  environment `e-q3nu9agtwx`, "sapphire-backend-env-1", in us-east-2).
 - Select Upload and Deploy
 - Upload the zip file
 

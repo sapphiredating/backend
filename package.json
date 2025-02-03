@@ -13,9 +13,11 @@
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.6",
+    "prisma": "^6.3.0",
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@prisma/client": "^6.3.0",
     "cookie-parser": "^1.4.7",
     "debug": "~2.6.9",
     "dotenv": "^16.4.7",

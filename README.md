@@ -35,3 +35,6 @@ but when I do that I don't see the log file in the aws logs 🤷‍♂️.
 `cron.yaml` is another artifact from the sample app. I'm not sure if we'll need it but I'm keeping it around for now.
 
 The main server file resides at `./app.ts`.
+
+## Database
+We have a postgres database running on RDS. Manage it with prisma. The schema is in `./prisma/schema.prisma`. To update the database, run `npx prisma migrate dev --name <name of the migration>`. This will create a new migration in `./prisma/migrations/` and apply it to the database. To update the prisma client (necessary for typescript to know about the new schema), run `npx prisma generate`.

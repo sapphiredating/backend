@@ -55,6 +55,10 @@ export const log = (entry: string) =>
     new Date().toISOString() + " - " + entry + "\n"
   );
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 app.listen(port, () => {
   log(`Server running at http://localhost:${port}`);
 });

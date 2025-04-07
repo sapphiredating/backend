@@ -7,6 +7,7 @@ import fs from "fs";
 
 import testRouter from "./routes/index";
 import apiRouter from "./routes/api";
+import devRouter from "./routes/dev";
 
 const port = process.env.PORT;
 if (!port) {
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/test", testRouter);
 app.use("/api", apiRouter);
+app.use("/dev", devRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

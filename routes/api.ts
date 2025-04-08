@@ -1,9 +1,8 @@
 import { Router } from "express";
-import { log } from "../api/index";
 const router = Router();
 
 router.post("/test", (_req, res, _next) => {
-  log("Test route hit");
+  console.log("Test route hit");
   res.status(200).send();
 });
 

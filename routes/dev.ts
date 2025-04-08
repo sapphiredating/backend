@@ -24,7 +24,7 @@ interface PotentialMatch {
   id: number;
   name: string;
   tagline: string;
-//   profileImage: Blob;
+  //   profileImage: Blob;
   cards: MatchCard[];
 }
 
@@ -78,6 +78,67 @@ const potentialMatches: PotentialMatch[] = [
 
 router.get("/potential-matches", (req, res) => {
   res.json(potentialMatches);
+});
+
+interface MessageItem {
+  id: string;
+  name: string;
+  snippet: string;
+  streak?: number; // e.g., 3
+  timeLeft?: number; // number of hours left (e.g., 1 means 1 hour left, 30 means 30 hours left)
+  yourMove?: boolean; // true if it's your turn to reply
+  avatar?: string; // optional avatar image URL
+}
+
+const MESSAGES: MessageItem[] = [
+  {
+    id: "1",
+    name: "Sushmita",
+    snippet: "Doing well, thanks for asking.",
+    streak: 1,
+    yourMove: false,
+  },
+  {
+    id: "2",
+    name: "Cleo",
+    snippet: "I LOVED Wicked too!!! what was your favorite song?",
+    streak: 3,
+    yourMove: true,
+  },
+  {
+    id: "3",
+    name: "Nellie",
+    snippet: "you have a thing for what?",
+    streak: 3,
+    yourMove: false,
+  },
+  {
+    id: "4",
+    name: "Merrick",
+    snippet: "I'll be in Arizona then too! we should totally hang out",
+    streak: 2,
+    yourMove: true,
+  },
+  {
+    id: "5",
+    name: "Sophia",
+    snippet: "when did you move to new york?",
+    streak: 4,
+    yourMove: false,
+    timeLeft: 1, // 1 hour left
+  },
+  {
+    id: "6",
+    name: "Alex",
+    snippet: "Just checking in!",
+    streak: 5,
+    yourMove: true,
+    timeLeft: 30, // 30 hours left (will display as "1 day left")
+  },
+];
+
+router.get("/messages", (req, res) => {
+  res.json(MESSAGES);
 });
 
 export default router;

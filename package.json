@@ -4,8 +4,8 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start": "node dist/app.js",
-    "build": "tsc"
+    "start": "node dist/api/index.js",
+    "build": "rm -rf dist && tsc"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.8",

@@ -24,11 +24,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api", apiRouter);
 app.use("/dev", devRouter);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
 // error handling - should be last middleware
 
 interface Error {
@@ -50,8 +45,12 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+// catch 404 and forward to error handler.
+// ! ANY ROUTES SPECIFIED AFTER THIS LINE WILL NOT BE REACHED
+app.use(function (req, res, next) {
+  next(createError(404));
+});
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
-
 export default app;

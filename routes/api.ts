@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { log } from "../app";
+import { log } from "../api/index";
 const router = Router();
 
 router.post("/test", (_req, res, _next) => {

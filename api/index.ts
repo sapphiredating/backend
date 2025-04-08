@@ -3,7 +3,6 @@ import express, { NextFunction, Request, Response } from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import fs from "fs";
 
 import apiRouter from "../routes/api";
 import devRouter from "../routes/dev";
@@ -47,16 +46,12 @@ app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
   res.send("error");
 });
 
-export const log = (entry: string) =>
-  fs.appendFileSync(
-    "/tmp/sample-app.log",
-    new Date().toISOString() + " - " + entry + "\n"
-  );
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 app.listen(port, () => {
-  log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
+
+export default app;

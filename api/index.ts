@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import fs from "fs";
 
-import testRouter from "../routes/index";
 import apiRouter from "../routes/api";
 import devRouter from "../routes/dev";
 
@@ -23,7 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/test", testRouter);
 app.use("/api", apiRouter);
 app.use("/dev", devRouter);
 

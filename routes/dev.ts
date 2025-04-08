@@ -8,6 +8,11 @@ function fileToBlob(path: string, mimeType: string): Blob {
 
 const router = Router();
 
+/* GET home page. */
+router.get("/secret_page", function (req, res, next) {
+  res.send("You found the secret page");
+});
+
 interface MatchCard {
   id: string;
   title?: string;
@@ -19,7 +24,7 @@ interface PotentialMatch {
   id: number;
   name: string;
   tagline: string;
-  profileImage: Blob;
+//   profileImage: Blob;
   cards: MatchCard[];
 }
 
@@ -28,7 +33,7 @@ const potentialMatches: PotentialMatch[] = [
     id: 1,
     name: "Sushmita",
     tagline: "Cat Lover | Foodie | Dog Lover",
-    profileImage: fileToBlob("assets/images/Sushmita.png", "image/png"),
+    // profileImage: fileToBlob("assets/images/Sushmita.png", "image/png"),
     cards: [
       {
         id: "1",
@@ -38,10 +43,10 @@ const potentialMatches: PotentialMatch[] = [
       },
       {
         id: "2",
-        additionalImage: fileToBlob(
-          "assets/images/photo1.jpeg",
-          "image/jpeg"
-        ),
+        // additionalImage: fileToBlob(
+        //   "assets/images/photo1.jpeg",
+        //   "image/jpeg"
+        // ),
       },
       {
         id: "3",
@@ -50,10 +55,10 @@ const potentialMatches: PotentialMatch[] = [
       },
       {
         id: "4",
-        additionalImage: fileToBlob(
-          "assets/images/photo4.jpeg",
-          "image/jpeg"
-        ),
+        // additionalImage: fileToBlob(
+        //   "assets/images/photo4.jpeg",
+        //   "image/jpeg"
+        // ),
       },
       {
         id: "5",
@@ -62,10 +67,10 @@ const potentialMatches: PotentialMatch[] = [
       },
       {
         id: "6",
-        additionalImage: fileToBlob(
-          "assets/images/photo3.jpeg",
-          "image/jpeg"
-        ),
+        // additionalImage: fileToBlob(
+        //   "assets/images/photo3.jpeg",
+        //   "image/jpeg"
+        // ),
       },
     ],
   },

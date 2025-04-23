@@ -4,21 +4,113 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_DATABASE_URL")
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
+  extensions = [uuid_ossp(map: "uuid-ossp", schema: "extensions"), vector(schema: "extensions")]
 }
 
-model User {
-  id          Int    @id @default(autoincrement())
-  firstName   String
-  lastName    String
-  email       String @unique
-  phoneNumber String @unique
+model TestEmbedding {
+  id        Int                      @id @default(autoincrement())
+  text      String
+  embedding Unsupported("vector(4)")
+}
 
-  tagline      String?
-  profileImage String?
+model TestUser {
+  id                 Int              @id @default(autoincrement())
+  email              String           @unique
+  /// *
+  /// * E.164 format
+  phoneNumber        String           @unique
+  passwordHash       String
+  firstName          String
+  lastName           String
+  gender             EGender
+  genderIdentity     EGenderIdentity
+  dateOfBirth        DateTime
+  /// *
+  /// * ISO 6709 format
+  location           String
+  ethnicity          EEthnicity
+  politcalBelief     EPoliticalBelief
+  religion           EReligion
+  drinker            Boolean
+  drinkerDealbreaker Boolean
+  smoker             Boolean
+  smokerDealbreaker  Boolean
+  weed               Boolean
+  weedDealbreaker    Boolean
+  TestUser_A         TestUser[]       @relation("Match")
+  TestUser_B         TestUser[]       @relation("Match")
+}
 
-  matcher User[] @relation("Match")
-  matchee User[] @relation("Match")
+enum EGender {
+  MALE
+  FEMALE
+  NONBINARY
+  OTHER
+}
+
+enum EGenderIdentity {
+  GENDER_FLUID
+  GENDERQUEER
+  GENDER_QUESTIONING
+  INTERSEX_MAN
+  TRANS_MAN
+  TRANS_WOMAN
+  TRANS_FEMININE
+  TRANS_MASCULINE
+  INTERSEX_WOMAN
+  FEMME
+  MASC
+  BIGENDER
+  AGENDER
+  GENDER_NONCONFORMING
+  GENDER_VARIANT
+  PANGENDER
+  POLYGENDER
+  TRANSGENDER
+  TWO_SPIRIT
+  CISGENDER
+  OTHER
+}
+
+enum EEthnicity {
+  BLACK_AFRICAN_AMERICAN_CARIBBEAN_AMERICAN
+  EAST_ASIAN
+  SOUTHEAST_ASIAN
+  HISPANIC
+  LATINO
+  SOUTH_ASIAN
+  WHITE_CAUCASIAN
+  MIDDLE_EASTERN
+  NATIVE_AMERICAN
+  PACIFIC_ISLANDER
+  MIXED_RACE
+  OTHER
+}
+
+enum EPoliticalBelief {
+  LIBERAL
+  CONSERVATIVE
+  MODERATE
+  APOLITICAL
+  PREFER_NOT_TO_SAY
+  OTHER
+}
+
+enum EReligion {
+  CATHOLIC
+  CHRISTIAN
+  AGNOSTIC
+  PROTESTANT
+  HINDU
+  SPIRITUAL
+  ATHEIST
+  BUDDHIST
+  JEWISH
+  MUSLIM
+  SIKH
+  DONT_WANT_TO_ANSWER
+  OTHER
 }
